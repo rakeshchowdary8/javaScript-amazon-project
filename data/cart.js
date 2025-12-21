@@ -32,5 +32,6 @@ export function removeFromCart(productId) {
     }
   })
   cart = newCart;
-  console.log(cart);
+  
+  
 }
