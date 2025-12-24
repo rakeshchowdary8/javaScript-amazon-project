@@ -1,4 +1,4 @@
-import {cart, removeFromCart} from '../data/cart.js';
+import {cart, removeFromCart, updateDeliveryOption} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
@@ -8,7 +8,7 @@ let cartSummaryHTML = '';
 
 cart.forEach( cartItem => {
     const productId = cartItem.productId;
-    let matchingproduct = 0;
+    let matchingproduct;
     products.forEach( product => {
         if(productId === product.id){
             matchingproduct = product;
@@ -25,10 +25,12 @@ cart.forEach( cartItem => {
             deliveryOption = option;
         }
     })
+    
 
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays,'days');
     const dateString = deliveryDate.format('dddd, MMMM D');
+
 
    cartSummaryHTML += 
     `<div class="cart-item-container js-cart-item-container-${matchingproduct.id}">
@@ -100,9 +102,11 @@ function deliveryOptionsHTML(matchingproduct, cartItem) {
         
 
         html += `
-                <div class="delivery-option">
+                <div class="delivery-option js-delivery-option" 
+                data-product-id = "${matchingproduct.id}"
+                data-delivery-option-id = "${deliveryOption.id}">
                     <input type="radio"
-                        class="delivery-option-input" ${isChecked? 'checked' : ''}
+                        class="delivery-option-input" ${isChecked? 'checked' : ''} 
                         name="delivery-option-${matchingproduct.id}">
                     <div>
                         <div class="delivery-option-date">
@@ -117,3 +121,11 @@ function deliveryOptionsHTML(matchingproduct, cartItem) {
     })
     return html;
 }
+
+
+document.querySelectorAll('.js-delivery-option').forEach((element) => {
+    element.addEventListener('click', () => {
+        const {productId, deliveryOptionId} = element.dataset;
+        updateDeliveryOption(productId, deliveryOptionId);
+    })
+})
