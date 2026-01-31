@@ -49,6 +49,22 @@ class Clothing extends Product {
   }
 };  
 
+/* function logThis() {
+  console.log(this);
+}
+
+logThis();
+logThis.call('Hola') */
+
+/* this
+const object1 = {  
+  method : () => {
+    console.log(this);
+  }
+}
+object1.method()
+ */
+
 const product1 = new Product({
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
