@@ -4,8 +4,46 @@ import { loadProducts } from "../data/products.js";
 // import '../data/cart-class.js';
 // import '../data/backend-practice.js';
 
+
+
+/*
+new Promise( (resolve) => {
+    loadProducts( () => {
+        resolve();
+    })
+}).then( () => {
+    renderOrderSummary();
+    renderPaymentSummary();
+})
+
+
+/*
 loadProducts(() => {
     renderOrderSummary();
     renderPaymentSummary();
 })
+*/
+
+Promise.all([
+    new Promise( (resolve) => {       // Just to learn Promise.all()
+    loadProducts( () => {
+        resolve('value 1');
+    })
+})
+]).then( () => {
+    renderOrderSummary();
+    renderPaymentSummary();
+})
+
+new Promise( (resolve) => {
+    loadProducts( () => {
+        resolve('value 1');
+    })
+}).then ( (value) => {
+    console.log(value);
+}).then ( () => {
+    renderOrderSummary();
+    renderPaymentSummary();
+})
+
 
