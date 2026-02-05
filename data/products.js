@@ -767,7 +767,7 @@ export const products = [
 });
 */
 
-function loadProductsFetch() {
+export function loadProductsFetch() {
     const promise = fetch('https://supersimplebackend.dev/products').then( (response) => {
         return response.json();
        
@@ -779,10 +779,8 @@ function loadProductsFetch() {
       return new Product(productDetails)
         })
     })
-    console.log(promise);
     return promise;
 }
 
 loadProductsFetch().then( () => {
-  console.log('next step')
 })
