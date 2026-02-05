@@ -94,11 +94,14 @@ const product1 = new Product({
         })
 
       fun();
-
+    });
+    xhr.addEventListener( 'error',(error) => {
+    console.log('Unexpected Error occured while loading the products');
     })
     xhr.open('GET','https://supersimplebackend.dev/products');
     xhr.send();
   }
+
 
 /*
 export const products = [
@@ -778,9 +781,10 @@ export function loadProductsFetch() {
 
       return new Product(productDetails)
         })
+    }).catch( () => {
+      console.log("Error Occured Try again later")
     })
     return promise;
 }
 
-loadProductsFetch().then( () => {
-})
+loadProductsFetch();
